@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hall of Fame</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #0a0f1c; color: #fff; text-align: center; }
+    nav a { margin: 10px; color: #bbb; text-decoration: none; }
+    nav a:hover { color: white; }
+    .hof-entry { background: #1b2236; margin: 15px auto; padding: 15px; border-radius: 8px; max-width: 600px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="index.html">Złóż donos</a>
+    <a href="donosy.html">Wszystkie donosy</a>
+    <a href="zdjecia.html">Zdjęcia</a>
+    <a href="hof.html">Hall of Fame</a>
+  </nav>
+
+  <h1>Hall of Fame</h1>
+  <div id="hof-list"></div>
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyCTC6Q71Vt_79840ej8H3iNQc3-K8EhrRA",
+  authDomain: "e-donos.firebaseapp.com",
+  databaseURL: "https://e-donos-default-rtdb.firebaseio.com",
+  projectId: "e-donos",
+  storageBucket: "e-donos.firebasestorage.app",
+  messagingSenderId: "984979791589",
+  appId: "1:984979791589:web:ed0f0cd76cff4b81583e0c",
+  measurementId: "G-HB4QSRS72K"
+};
+    firebase.initializeApp(firebaseConfig);
+
+    const db = firebase.database();
+    const hofList = document.getElementById("hof-list");
+
+    // Wyświetlanie wpisów z HOF
+    db.ref("hof").on("child_added", (data) => {
+      const div = document.createElement("div");
+      div.className = "hof-entry";
+      div.innerText = data.val();
+      hofList.appendChild(div);
+    });
+  </script>
+</body>
+</html>
