@@ -1,1 +1,0 @@
-# Donos-na-wszystkich.Slupsk
